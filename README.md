@@ -7,6 +7,7 @@ This plugin is still in inital stages
 How to Use :
 
 1.Set the Options 
+```javascript
   cartOptions = {
   	listingHtmlTemplate: document.getElementById('listingTemp').innerHTML, // Mustache script template , You can use jQuery also
   	appendListingTo: document.getElementsByClassName('proListing')[0], //target html object for the product listing , You can use jQuery also
@@ -22,13 +23,14 @@ How to Use :
   	] 
   }
 
-_____________________________________________________________________________
+```
+_______________________________________________________________________
 
 2. Init it :
-
+```javascript
 (function(){
  cartJS.init(cartOptions);
 })();
-
+```
 
 
