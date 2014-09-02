@@ -16,9 +16,9 @@ How to Use :
   	currency:'$',
   	products: [ // Array of Json objects of the products 
   	{
-  	"name":"Product 1", String
-  	"id":12, Numeric Value
-  	"price":12, Numeric Value
+  	"name":"Product 1",// String
+  	"id":12,// Numeric Value
+  	"price":12,// Numeric Value
   	"image":"http://placehold.it/350x150"}
   	] 
   }
