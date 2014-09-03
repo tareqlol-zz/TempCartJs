@@ -2,22 +2,27 @@
 <html>
 <head>
 	<title>Simple Catalog JS</title>
-	<script type="text/javascript" src="mustache.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<script type="text/javascript" src="scripts/mustache.js"></script>
+	<script type="text/javascript" src="scripts/TempCart.js"></script>
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
 </head>
-<body onload="cartJS.init(cartOptions)">
+<body onload="TempCart.init(tempCartOptions)">
 	<header>
 		<section>
-			<h2>Simple Catalog JS</h2>
-			<div class="cart"></div>
+			<h2>Temp Cart Javascript</h2>
 		</section>
 	</header>
 	<section>
 		<div class="proListing"></div>
 	</section>
 	<footer>
+		<div class="cart"></div>
 
+	<div class="notification">
+		<span class="success"></span>
+		<p>Welcome</p>
+	</div>
 <script id="listingTemp" type="text/template">
 {{#products}}
 <div class="product" id="{{id}}">
@@ -38,14 +43,13 @@
 		{{price}}{{currency}}
 	</div>
 	<div class="options">
-		<button onclick="cartJS.updateCart({{id}})">Add to cart</button>
+		<button onclick="TempCart.updateCart({{id}},'add')">Add to cart</button>
 	</div>
-	
 </div>
 {{/products}}
 </script>
 <script id="cartTemp" type="text/template">
-	<div class="trigger">You have {{proCounter}} Products in the cart</div>
+	<p class="title">Cart</p>
 	<div class="cartDropDown">
 		{{#products}}
 		<div class="product">
@@ -70,7 +74,7 @@
 					<input type="text" placeholder="{{qty}}"/>
 				</div>
 				<div class="remove">
-					<button class="removeBtn" id="remove_{{id}}">X</button>
+					<button class="removeBtn" onclick="TempCart.updateCart({{id}},'remove')">X</button>
 				</div>
 			</div>
 		</div>
@@ -81,93 +85,43 @@
 
 
 <script type="text/javascript">
-cartOptions = {
+var tempCartOptions = {
 	listingHtmlTemplate: document.getElementById('listingTemp').innerHTML, // Mustache script template , You can use jQuery also
 	appendListingTo: document.getElementsByClassName('proListing')[0], //target html object , You can use jQuery also
 	cartHtmlTemplate: document.getElementById('cartTemp').innerHTML, // Mustache script template, You can use jQuery also
-	cartHtmlObject:document.getElementsByClassName('cart')[0],
+	cartHtmlObject: document.getElementsByClassName('cart')[0],
 	currency:'$',
-	products: [{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"},{"name":"Product 2","id":2,"price":20,"image":""}]
-}
+	products: [{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"},{"name":"Product 2","id":2,"price":20,"image":""},{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"},{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"},{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"},{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"},{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150"}],
 
-cartJS = {
-	init:function(cartOptions){
-		var self = this;
-		var products = cartOptions.products;
-		typeof console == "object" ? self.consoleReady = true : self.consoleReady == false
-			
-		if(!self.validateProductsJson(products)){
-			self.consoleLog('error','Please revise the products JSON object');
-		}
-		else{
-			self.renderProductTemplate(products,cartOptions.listingHtmlTemplate,cartOptions.appendListingTo,cartOptions.currency);
-		}
+	//Fall Backs
+	renderProductsFallBack:function() {
+		console.log('Products has been renderd');
+		document.getElementsByClassName('notification')[0].style.bottom = '-86px';
+	},
+	addProductFallBack:function(){
+		clearTimeout(slide);
+		document.getElementsByClassName('cart')[0].style.display = "block"; // show the cart
+		var notification = document.getElementsByClassName('notification')[0];
+		notification.querySelector('p').innerHTML = "Product has been Added to the cart";
+		notification.style.bottom = "0";
+		var slide = setTimeout(function(){
+			notification.style.bottom = '-86px';
+		},1000);
 
 	},
-	renderProductTemplate:function(products,template,target,currency){
-		if(template.length == 0 && target.length == 0){
-			self.consoleLog('error','There is No Template/Listing');
-			return;
-		}
-		Mustache.parse(template);   // optional, speeds up future uses
-		var rendered = Mustache.render(template, {products : products,currency:currency});
-		target.innerHTML = rendered;
-	},
-	updateCart:function(id){
-		var self = this;
-		if(typeof JsonCart == "undefined"){
-			JsonCart = new Array;
-		}
-		if(self.getProductbyProperty(JsonCart,'id',id)){
-			var cartProduct = self.getProductbyProperty(JsonCart,'id',id);
-			cartProduct.qty++;
-		}else{
-			product = self.getProductbyProperty(cartOptions.products,'id',id);
-			product.qty = 1;
-			JsonCart.push(product)
-		}
-		var cartTemplate = cartOptions.cartHtmlTemplate;
-		var cartHtmlTarget = cartOptions.cartHtmlObject;
-		var currency = cartOptions.currency;
-		self.renderProductTemplate(JsonCart,cartTemplate,cartHtmlTarget,currency)
-	},
-	validateProductsJson:function(products){
-		var self = this;
-		var validateThese = ['name','id','price','image'];
-		if(products.length > 0){
-			for(i in products){
-				for (var x = 0; x < validateThese.length; x++) {
-					if(!products[i].hasOwnProperty(validateThese[x])){
-						self.consoleLog('warn',"product #"+ i +" doesn't have "+validateThese[x]);
-						return false;
-					}
-				}
-				i++;
-			}
-			return true;
-		}else{
-			return false;
-		}
-	},
-	consoleLog:function(type,message){
-		if(self.consoleReady == true){
-			console[type]('Simple Catalog : ' + message);
-		}
-		else{
-			alert(message);
-		}
-	},
-	getProductbyProperty:function(obj,prop,value){//helper
-		var self = this;
-		for (var i = obj.length - 1; i >= 0; i--) {
-			if(obj[i][prop] == value){
-				return obj[i];
-			}
-		};
+	removeProductFallBack:function(){
+		var notification = document.getElementsByClassName('notification')[0];
+		notification.querySelector('p').innerHTML = "Product has removed from the cart";
+			notification.style.bottom = "0";
+		var slide = setTimeout(function(){
+			notification.style.bottom = '-86px';
+		},1000);
 	}
+
 }
 
 </script>
+
 </footer>
 </body>
 </html>

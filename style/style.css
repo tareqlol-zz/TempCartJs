@@ -1,0 +1,187 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+body{
+    margin: 20px auto;
+    width: 80%;
+    background: #7BDAFA;
+}
+header{
+    
+    color: #fff;
+    padding: 20px;
+}
+header h2{
+    margin: 0;
+
+    font-weight: 300;
+    display: inline;
+}
+.proListing{
+
+}
+.proListing .product{
+
+    float: left;
+    text-align: center;
+    border: 2px solid #fff;
+    
+
+    margin-right: 14px;
+    box-shadow: 1px 1px 1px #ccc;
+    
+
+    padding: 32px;
+
+    min-height: 213px;
+
+    position: relative;
+
+    margin-bottom: 12px;
+
+}
+.proListing .product .ProImg{
+    background: #fff;
+
+    max-width: 150px;
+    overflow: hidden;
+    /* height: 150px; */
+}
+.proListing .product .ProImg img{
+    max-width:100%
+;
+    vertical-align: middle;
+}
+.proListing .product .productName{
+    width: 80%;
+
+    text-align: left;
+    color: #fff;
+    float: left;
+}
+
+.proListing .product .productPrice{
+    width: 20%;
+
+    float: left;
+    text-align: right;
+    color: #fff;
+}
+.proListing .product .options{
+    position: absolute;
+
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    left: 0;
+}
+.proListing .product button{
+    background: none;
+    
+    border: 1px solid #fff;;
+    font-size: 1.3em;
+    color: #fff;
+    padding: 5px 13px;
+    transition:.3s all; 
+    cursor: pointer;
+}
+.proListing .product button:hover{background:#fff;color: #7BDAFA;border-color: #ccc;text-shadow: 0px 0px 1px #868686;}
+.cart{
+    float: right;
+    width: 270px;
+    position: fixed;
+    top: 45px;
+    right: 20px;
+}
+.cart .title{
+    
+}
+.cartDropDown{
+    background: #fff;
+
+    color: #7BDAFA;
+    padding: 12px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 1px #ADADAD;
+}
+.cartDropDown .product{
+    overflow: hidden;
+
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: whitesmoke;
+    margin-bottom: 4px;
+}
+.cartDropDown .product > *{
+    float: left;
+
+    margin-right: 5px;
+}
+.cartDropDown .product .ProImg{
+    width: 65px;
+
+}
+.cartDropDown .product img{
+    
+
+    height: 50px;
+
+    width: 50px;
+
+}
+.cartDropDown .product .productName{
+
+}
+
+.cartDropDown .product .productPrice{
+
+}
+.cartDropDown .product .options{
+    float: right;
+
+}
+.cartDropDown .product .button{
+    
+}
+.cartDropDown .product .qty-holder{
+    width: 20px;
+    
+    float: left;
+    margin-right: 5px;
+}
+.cartDropDown .product .remove{
+    float: left;
+    
+}
+.cartDropDown .product button{
+    border: 0;
+    
+    background: none;
+    color: #7BDAFA;
+    font-weight: 700;
+    cursor: pointer;
+}
+.cartDropDown .product input{
+    width: inherit;
+    
+    text-align: center;
+}
+.notification{
+    position: fixed;
+
+    bottom: 0;
+    right: 30px;
+    background: #ccc;
+    padding: 17px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    transition: .3s all;
+}
+.notification span{
+    
+}
+.notification p{
+    
+}
