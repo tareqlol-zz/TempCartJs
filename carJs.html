@@ -3,10 +3,21 @@
 <head>
 	<title>Simple Catalog JS</title>
 	<script type="text/javascript" src="mustache.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
 </head>
 <body onload="cartJS.init(cartOptions)">
-<div class="proListing"></div>
-<div class="cart"></div>
+	<header>
+		<section>
+			<h2>Simple Catalog JS</h2>
+			<div class="cart"></div>
+		</section>
+	</header>
+	<section>
+		<div class="proListing"></div>
+	</section>
+	<footer>
+
 <script id="listingTemp" type="text/template">
 {{#products}}
 <div class="product" id="{{id}}">
@@ -34,10 +45,36 @@
 {{/products}}
 </script>
 <script id="cartTemp" type="text/template">
+	<div class="trigger">You have {{proCounter}} Products in the cart</div>
 	<div class="cartDropDown">
-	{{#products}}
-	{{id}} {{image}} {{name}} {{price}} {{qty}}
-	{{/products}}
+		{{#products}}
+		<div class="product">
+			<div class="ProImg">
+				{{#image}}
+					<div class="img"><img src="{{image}}" alt="{{name}}" title="{{name}}"/></div>
+				{{/image}}
+				{{^image}}
+					<div class="ProImg">
+						<div class="img"><img src="http://placehold.it/150x150" alt="{{name}}" title="{{name}}"/></div>
+					</div>
+				{{/image}}
+			</div>
+			<div class="productName">
+				{{name}}
+			</div>
+			<div class="productPrice">
+				{{price}}{{currency}}
+			</div>
+			<div class="options">
+				<div class="qty-holder">
+					<input type="text" placeholder="{{qty}}"/>
+				</div>
+				<div class="remove">
+					<button class="removeBtn" id="remove_{{id}}">X</button>
+				</div>
+			</div>
+		</div>
+		{{/products}}
 	</div>
 </script>
 
@@ -131,5 +168,6 @@ cartJS = {
 }
 
 </script>
+</footer>
 </body>
 </html>
