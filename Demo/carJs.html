@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Catalog JS</title>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/font-awesome.min.css">
+	<script type="text/javascript" src="scripts/mustache.js"></script>
+	<script type="text/javascript" src="scripts/TempCart.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
+</head>
+<body onload="TempCart.init(tempCartOptions)">
+	<header>
+		<section>
+			<h2>Temp Cart Javascript</h2>
+		</section>
+	</header>
+	<section>
+		<div class="proListing"></div>
+	</section>
+	<footer>
+		<div class="cart"></div>
+
+	<div class="notification">
+		<span class="success"></span>
+		<p>Welcome</p>
+	</div>
+<script id="listingTemp" type="text/template">
+{{#products}}
+<div class="product" id="{{id}}">
+	{{#image}}
+		<div class="ProImg">
+			<div class="img"><img src="{{image}}" alt="{{name}}" title="{{name}}"/></div>
+		</div>
+	{{/image}}
+	{{^image}}
+		<div class="ProImg">
+			<div class="img"><img src="http://placehold.it/150x150" alt="{{name}}" title="{{name}}"/></div>
+		</div>
+	{{/image}}
+	<div class="details">
+		<div class="productName">
+			{{name}}
+		</div>
+		<div class="productPrice">
+			{{price}}{{currency}}
+		</div>
+	</div>
+	<div class="options">
+	<p class="description">{{description}}</p>
+		<button onclick="TempCart.updateCart({{id}},'add')"><i class="fa fa-shopping-cart fa-1x"></i></button>
+	</div>
+</div>
+{{/products}}
+</script>
+<script id="cartTemp" type="text/template">
+	<p class="title">Cart</p>
+	<div class="cartDropDown">
+		{{#products}}
+		<div class="product">
+			<div class="ProImg">
+				{{#image}}
+					<div class="img"><img src="{{image}}" alt="{{name}}" title="{{name}}"/></div>
+				{{/image}}
+				{{^image}}
+					<div class="ProImg">
+						<div class="img"><img src="http://placehold.it/150x150" alt="{{name}}" title="{{name}}"/></div>
+					</div>
+				{{/image}}
+			</div>
+			<div class="productName">
+				{{name}}
+			</div>
+			<div class="productPrice">
+				{{price}}{{currency}}
+			</div>
+			<div class="options">
+				<div class="qty-holder">
+					<input type="text" placeholder="{{qty}}"/>
+				</div>
+				<div class="remove">
+					<button class="removeBtn" onclick="TempCart.updateCart({{id}},'remove')">X</button>
+				</div>
+			</div>
+		</div>
+		{{/products}}
+		<p class="cartPrice">Total Price : {{products.total}}{{currency}}</p>
+	</div>
+</script>
+
+
+
+<script type="text/javascript">
+var tempCartOptions = {
+	listingHtmlTemplate: document.getElementById('listingTemp').innerHTML, // Mustache script template , You can use jQuery also
+	appendListingTo: document.getElementsByClassName('proListing')[0], //target html object , You can use jQuery also
+	cartHtmlTemplate: document.getElementById('cartTemp').innerHTML, // Mustache script template, You can use jQuery also
+	cartHtmlObject: document.getElementsByClassName('cart')[0],
+	currency:'$',
+	products: [
+		{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150","description":"A Simple description"},
+		{"name":"Product 2","id":2,"price":20,"image":"","description":"A Simple description"},
+		{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150","description":"A Simple description"}
+	],
+	//Fall Backs
+	renderProductsFallBack:function() {
+		console.log('Products has been renderd');
+		document.getElementsByClassName('notification')[0].style.bottom = '-86px';
+	},
+	addProductFallBack:function(){
+		clearTimeout(slide);
+		document.getElementsByClassName('cart')[0].style.display = "block"; // show the cart
+		var notification = document.getElementsByClassName('notification')[0];
+		notification.querySelector('p').innerHTML = "Product has been Added to the cart";
+		notification.style.bottom = "0";
+		var slide = setTimeout(function(){
+			notification.style.bottom = '-86px';
+		},1000);
+
+	},
+	removeProductFallBack:function(){
+		var notification = document.getElementsByClassName('notification')[0];
+		notification.querySelector('p').innerHTML = "Product has removed from the cart";
+			notification.style.bottom = "0";
+		var slide = setTimeout(function(){
+			notification.style.bottom = '-86px';
+		},1000);
+	}
+
+}
+
+</script>
+
+</footer>
+</body>
+</html>
