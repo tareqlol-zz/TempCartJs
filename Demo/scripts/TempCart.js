@@ -49,7 +49,6 @@ TempCart = {
 			JsonCart.push(product);
 			options.addProductFallBack();
 		}
-		JsonCart['total'] = self.getCartTotal(JsonCart);
 		var cartTemplate = options.cartHtmlTemplate;
 		var cartHtmlTarget = options.cartHtmlObject;
 		var currency = options.currency;
@@ -71,15 +70,6 @@ TempCart = {
 			return true;
 		}else{
 			return false;
-		}
-	},
-	getCartTotal:function(cart){
-		if(cart.length >= 0){
-			var total = 0;
-			for (var i = cart.length - 1; i >= 0; i--) {
-				total += cart[i].price * cart[i].qty;
-			}
-			return total;
 		}
 	},
 	consoleLog:function(type,message){
