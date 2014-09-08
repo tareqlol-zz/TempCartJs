@@ -12,6 +12,7 @@ header{
     
     color: #fff;
     padding: 20px;
+    padding-left: 0;
 }
 header h2{
     margin: 0;
@@ -19,12 +20,20 @@ header h2{
     font-weight: 300;
     display: inline;
 }
+header p{
+    font-size: 2em;
+    
+    margin: 0;
+}
 .proListing{
+    width: 80%;
 
+    overflow: hidden;
+    text-align: center;
 }
 .proListing .product{
 
-    float: left;
+    display: inline-block;
     text-align: center;
     border: 2px solid #fff;
     
@@ -43,17 +52,34 @@ header h2{
 
     margin-bottom: 12px;
 
+    min-width: 150px;
+
+    width: 20%;
+
 }
 .proListing .product .ProImg{
-    background: #fff;
 
-    max-width: 150px;
+    max-width: 100%;
     overflow: hidden;
-    /* height: 150px; */
+    font: 0/0 a;
+    position: relative;
 }
+.proListing .product .ProImg:before{ content: ' ';
+    display: inline-block;
+    vertical-align: middle;  /* vertical alignment of the inline element */
+    height: 100%;}
 .proListing .product .ProImg img{
     max-width:100%;
-    vertical-align: middle;
+    display: inline-block;      vertical-align: middle;  /* vertical alignment of the inline element */      font: 16px/1 Arial sans-serif;
+}
+.loadingSpin{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 30px!important;
+    color: #B4B4B4;
+    margin-top: -15px;
+    margin-left: -15px;
 }
 .proListing .product .details{
     position: absolute;
@@ -101,11 +127,12 @@ header h2{
     
     max-height: 176px;
     height: 320px;
-    text-align: left;
     padding-bottom: 5px;
     border-bottom: 2px solid #ccc;
     margin-bottom: 5px;
     overflow: hidden;
+    text-align: center;
+    font-size: 2em;
 }
 .proListing .product .options:hover{
     opacity:1;   
@@ -134,9 +161,19 @@ header h2{
     position: fixed;
     top: 45px;
     right: 20px;
+    margin-right: 16px;
+}
+.cart .title i{
+    margin-right: 14px;
+    
 }
 .cart .title{
+    text-align: center;
     
+    color: #fff;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    margin-top: 4px;
 }
 .cartDropDown{
     background: #fff;
@@ -153,6 +190,7 @@ header h2{
     border: 1px solid #ccc;
     background: whitesmoke;
     margin-bottom: 4px;
+    position: relative;
 }
 .cartDropDown .product > *{
     float: left;
@@ -181,6 +219,9 @@ header h2{
 .cartDropDown .product .options{
     float: right;
 
+    position: absolute;  
+    top: 4px;  
+    right: -3px;
 }
 .cartDropDown .product .button{
     
@@ -193,7 +234,7 @@ header h2{
 }
 .cartDropDown .product .remove{
     float: left;
-    
+        
 }
 .cartDropDown .product button{
     border: 0;
@@ -218,6 +259,23 @@ header h2{
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     transition: .3s all;
+}
+.cartPrice:before{
+    content:' ';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 1px;
+    background: #ccc;
+}
+.cartPrice{
+    position: relative;
+    margin-top: 20px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1.5em;
+    text-align: center;
 }
 .notification span{
     

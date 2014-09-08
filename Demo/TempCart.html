@@ -11,7 +11,8 @@
 <body onload="TempCart.init(tempCartOptions)">
 	<header>
 		<section>
-			<h2>Temp Cart Javascript</h2>
+			<h2>Temp Cart Javascript </h2>
+			<p>Welcome to a dummy store of TempCartJs</p>
 		</section>
 	</header>
 	<section>
@@ -29,12 +30,14 @@
 <div class="product" id="{{id}}">
 	{{#image}}
 		<div class="ProImg">
-			<div class="img"><img src="{{image}}" alt="{{name}}" title="{{name}}"/></div>
+			<i class="fa fa-spinner loadingSpin fa-spin"></i>
+			<img src="{{image}}" alt="{{name}}" title="{{name}}" onload="hideLoader(this)"/>
 		</div>
 	{{/image}}
 	{{^image}}
 		<div class="ProImg">
-			<div class="img"><img src="http://placehold.it/150x150" alt="{{name}}" title="{{name}}"/></div>
+			<i class="fa fa-spinner loadingSpin fa-spin"></i>
+			<img src="http://placehold.it/150x150" alt="{{name}}" title="{{name}}" onload="hideLoader(this)"/>
 		</div>
 	{{/image}}
 	<div class="details">
@@ -42,18 +45,18 @@
 			{{name}}
 		</div>
 		<div class="productPrice">
-			{{price}}{{currency}}
+			{{currency}}{{price}}
 		</div>
 	</div>
 	<div class="options">
 	<p class="description">{{description}}</p>
-		<button onclick="TempCart.updateCart({{id}},'add')"><i class="fa fa-shopping-cart fa-1x"></i></button>
+		<button onclick="TempCart.updateCart({{id}},'add')"><i class="fa fa-shopping-cart fa-2x"></i></button>
 	</div>
 </div>
 {{/products}}
 </script>
 <script id="cartTemp" type="text/template">
-	<p class="title">Cart</p>
+	<p class="title"><i class="fa fa-truck fa-1x"></i>Cart</p>
 	<div class="cartDropDown">
 		{{#products}}
 		<div class="product">
@@ -71,19 +74,16 @@
 				{{name}}
 			</div>
 			<div class="productPrice">
-				{{price}}{{currency}}
+				{{currency}}{{price}} X {{qty}}
 			</div>
 			<div class="options">
-				<div class="qty-holder">
-					<input type="text" placeholder="{{qty}}"/>
-				</div>
 				<div class="remove">
 					<button class="removeBtn" onclick="TempCart.updateCart({{id}},'remove')">X</button>
 				</div>
 			</div>
 		</div>
 		{{/products}}
-		<p class="cartPrice">Total Price : {{products.total}}{{currency}}</p>
+		<p class="cartPrice">Total Price : {{currency}}{{products.total}}</p>
 	</div>
 </script>
 
@@ -96,10 +96,13 @@ var tempCartOptions = {
 	cartHtmlTemplate: document.getElementById('cartTemp').innerHTML, // Mustache script template, You can use jQuery also
 	cartHtmlObject: document.getElementsByClassName('cart')[0],
 	currency:'$',
+	saveCart:true,
 	products: [
-		{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150","description":"A Simple description"},
-		{"name":"Product 2","id":2,"price":20,"image":"","description":"A Simple description"},
-		{"name":"Product 1","id":12,"price":12,"image":"http://placehold.it/350x150","description":"A Simple description"}
+		{"name":"White T-shirt","id":1,"price":10,"image":"style/1.png","description":"Plain White T-Shirt comes with four colors"},
+		{"name":"Blue T-shirt","id":2,"price":20,"image":"style/2.png","description":"Plain Blue T-Shirt comes with four colors "},
+		{"name":"Green T-shirt","id":3,"price":36,"image":"style/3.png","description":"Plain Green T-Shirt comes with four colors "},
+		{"name":"Purple T-shirt","id":4,"price":19,"image":"style/4.png","description":"Plain Purple T-Shirt comes with four colors "},
+		{"name":"Pinkish Red T-shirt","id":5,"price":40,"image":"style/5.png","description":"Plain Red T-Shirt comes with four colors "}
 	],
 	//Fall Backs
 	renderProductsFallBack:function() {
@@ -127,7 +130,13 @@ var tempCartOptions = {
 	}
 
 }
-
+	Mustache.parse(tempCartOptions.cartHtmlTemplate);   // optional, speeds up future uses
+	var rendered = Mustache.render(tempCartOptions.cartHtmlTemplate, {});
+	tempCartOptions.cartHtmlObject.innerHTML = rendered;
+function hideLoader(imgNode){
+	var parentNode = imgNode.parentNode;
+	parentNode.getElementsByClassName('loadingSpin')[0].style.display = "none";
+}
 </script>
 
 </footer>
