@@ -3,7 +3,7 @@ TempCartJs
 
 ![alt text](http://tareqhassan.me/TempCartJs/tempCart.png "TempCart")
 
-A simple Strait forward Javascript Cart System with HTML5 storage (if Available) and Mustache Template Engine:
+A simple straight forward Javascript Cart System with HTML5 storage (if Available) and Mustache Template Engine:
 
 ***
   # Demo : http://tareqhassan.me/TempCartJs/TempCart.html
