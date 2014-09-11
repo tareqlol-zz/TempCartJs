@@ -1,12 +1,14 @@
 TempCartJs
 ==========
+
+![alt text](http://tareqhassan.me/TempCartJs/tempCart.png "TempCart")
+
 A simple Strait forward Javascript Cart System with HTML5 storage (if Available) and Mustache Template Engine:
 
-========================================
 ***
-  Demo : http://tareqhassan.me/TempCartJs/TempCart.html
+  # Demo : http://tareqhassan.me/TempCartJs/TempCart.html
 ***
-========================================
+
 How to Use :
 
 1.Set the Options 
@@ -47,4 +49,4 @@ _______________________________________________________________________
 })();
 ```
 
-
+* Logo Design by [Ahmad Ali](http://www.ahmadali.me/)
