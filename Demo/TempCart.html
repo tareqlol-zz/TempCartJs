@@ -109,17 +109,17 @@ var tempCartOptions = {
 		console.log('Products has been renderd');
 		document.getElementsByClassName('notification')[0].style.bottom = '-86px';
 	},
-	// addProductCallBack:function(){
-	// 	clearTimeout(slide);
-	// 	document.getElementsByClassName('cart')[0].style.display = "block"; // show the cart
-	// 	var notification = document.getElementsByClassName('notification')[0];
-	// 	notification.querySelector('p').innerHTML = "Product has been Added to the cart";
-	// 	notification.style.bottom = "0";
-	// 	var slide = setTimeout(function(){
-	// 		notification.style.bottom = '-86px';
-	// 	},1000);
+	addProductCallBack:function(){
+		clearTimeout(slide);
+		document.getElementsByClassName('cart')[0].style.display = "block"; // show the cart
+		var notification = document.getElementsByClassName('notification')[0];
+		notification.querySelector('p').innerHTML = "Product has been Added to the cart";
+		notification.style.bottom = "0";
+		var slide = setTimeout(function(){
+			notification.style.bottom = '-86px';
+		},1000);
 
-	// },
+	},
 	removeProductCallBack:function(){
 		var notification = document.getElementsByClassName('notification')[0];
 		notification.querySelector('p').innerHTML = "Product has removed from the cart";
