@@ -126,7 +126,7 @@ header p{
     color: #333;
     
     max-height: 176px;
-    height: 320px;
+    /* height: 320px; */
     padding-bottom: 5px;
     border-bottom: 2px solid #ccc;
     margin-bottom: 5px;
@@ -150,6 +150,7 @@ header p{
     display: block;
     padding: 0;
     float: right;
+    padding-top: 20px;
 }
 .proListing .product button:focus{
     outline: 0;
