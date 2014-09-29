@@ -15,7 +15,7 @@ TempCart =  new function(){
 			},
 			remove:function(cartProduct){
 				cartProduct.qty--;
-				self.deleteObjectId(cartProduct.id,JsonCart);
+				deleteObjectId(cartProduct.id,JsonCart);
 				if(typeof options.removeProductCallBack == "function"){
 					options.removeProductCallBack();
 				}
@@ -25,33 +25,33 @@ TempCart =  new function(){
 	this.init = function(tempCartOptions){
 		options = tempCartOptions;
 		products = options.products;
-		if(self.validateProductsJson(products)){
-			self.renderTemplate(products,options.listingHtmlTemplate,options.appendListingTo,options.currency);
-			if(self.checkLocalStorageCart()){
-				self.getLocalStorageCart();
+		if(validateProductsJson(products)){
+			renderTemplate(products,options.listingHtmlTemplate,options.appendListingTo,options.currency);
+			if(checkLocalStorageCart()){
+				getLocalStorageCart();
 			}
 			if(typeof options.renderProductsCallBack == "function"){
 				options.renderProductsCallBack();
 			}
 		}
 		else{
-			self.consoleLog('error','Please revise the products JSON object');
+			consoleLog('error','Please revise the products JSON object');
 		}
 	}
-	this.renderTemplate = function(products,template,target,currency){
+	var renderTemplate = function(products,template,target,currency){
 		if(template.length == 0 || target.length == 0){
-			self.consoleLog('error','There is No Template/Listing');
+			consoleLog('error','There is No Template/Listing');
 			return;
 		}
 		Mustache.parse(template);   // optional, speeds up future uses
 		target.innerHTML = Mustache.render(template, {products : products,currency:currency});
 	}
 	this.updateCart = function(id,type){
-		var cartProduct = self.getObjectbyProperty(JsonCart,'id',id);
+		var cartProduct = getObjectbyProperty(JsonCart,'id',id);
 		if(cartProduct){
 			cartActions[type](cartProduct);
 		}else{
-			product = self.getObjectbyProperty(options.products,'id',id);
+			product = getObjectbyProperty(options.products,'id',id);
 			product.qty = 1;
 			JsonCart.push(product);
 			if(typeof options.addProductCallBack == "function"){
@@ -59,20 +59,20 @@ TempCart =  new function(){
 			}
 
 		}
-		JsonCart['total'] = self.getCartTotal(JsonCart);
+		JsonCart['total'] = getCartTotal(JsonCart);
 		if(options.saveCart){
-			self.pushLocalStorageCart(JsonCart);
+			pushLocalStorageCart(JsonCart);
 		}
-		self.renderTemplate(JsonCart,options.cartHtmlTemplate,options.cartHtmlObject,options.currency);
+		renderTemplate(JsonCart,options.cartHtmlTemplate,options.cartHtmlObject,options.currency);
 	}
-	this.getCartTotal = function(cart){
+	var getCartTotal = function(cart){
 		var total = 0;
 		for (var i = cart.length - 1; i >= 0; i--) {
 			total += cart[i].price * cart[i].qty;
 		};
 		return total;
 	}
-	this.validateProductsJson = function(products){
+	var validateProductsJson = function(products){
 		var validateThese = ['name','id','price','image'];
 		if(products.length ===  0){
 			return false;
@@ -80,34 +80,34 @@ TempCart =  new function(){
 		for (var i = products.length - 1; i >= 0; i--) {
 			for (var m = 0; m < validateThese.length; m++) {
 				if( products[i][validateThese[m]] == null || typeof products[i][validateThese[m]] == 'undefined'){
-					self.consoleLog('warn',"product #"+ i +" doesn't have "+validateThese[m]);
+					consoleLog('warn',"product #"+ i +" doesn't have "+validateThese[m]);
 					return false; 
 				}
 			};
 		};
 		return true;
 	}
-	this.pushLocalStorageCart = function(cart){
+	var pushLocalStorageCart = function(cart){
 		if(typeof(Storage) ==="undefined"){
 			return;
 		}
 		var cartString = JSON.stringify(cart);
 		localStorage.setItem("TempCart", cartString);
 	}
-	this.getLocalStorageCart = function(){
+	var getLocalStorageCart = function(){
 		if(typeof(Storage) ==="undefined"){
 			return;
 		}	
 		var cartString = localStorage.getItem('TempCart');
 		JsonCart = JSON.parse(cartString);
-		JsonCart['total'] = self.getCartTotal(JsonCart);
-		self.renderTemplate(JsonCart,options.cartHtmlTemplate,options.cartHtmlObject,options.currency);
+		JsonCart['total'] = getCartTotal(JsonCart);
+		renderTemplate(JsonCart,options.cartHtmlTemplate,options.cartHtmlObject,options.currency);
 
 	}
-	this.checkLocalStorageCart = function(){
+	var checkLocalStorageCart = function(){
 		return typeof(Storage) !=="undefined" && localStorage.getItem('TempCart') != null ;	
 	}
-	this.consoleLog = function(type,message){
+	var consoleLog = function(type,message){
 		if(consoleReady){
 			console[type]('Temp Cart : ' + message);
 		}
@@ -115,14 +115,14 @@ TempCart =  new function(){
 			alert(message);
 		}
 	}
-	this.getObjectbyProperty = function(obj,prop,value){//helper
+	var getObjectbyProperty = function(obj,prop,value){//helper
 		for (var i = obj.length - 1; i >= 0; i--) {
 			if(obj[i][prop] == value){
 				return obj[i];
 			}
 		}
 	}
-	this.deleteObjectId = function(id,obj){
+	var deleteObjectId = function(id,obj){
 		for (var i = obj.length - 1; i >= 0; i--) {
 			if(obj[i]['id'] == id){
 				obj.splice(i,1);
