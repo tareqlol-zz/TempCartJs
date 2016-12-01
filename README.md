@@ -1,12 +1,10 @@
 TempCartJs
 ==========
 
-![alt text](http://tareqhassan.me/TempCartJs/tempCart.png "TempCart")
-
 A simple straight forward Javascript Cart System with HTML5 storage (if Available) and Mustache Template Engine:
 
 ***
-  # Demo : http://tareqhassan.me/TempCartJs/TempCart.html
+  # Demo : https://tareqlol.github.io/gitRepos/TempCartJs/Demo/TempCart.html
 ***
 
 How to Use :
@@ -48,5 +46,3 @@ _______________________________________________________________________
  cartJS.init(tempCartOptions);
 })();
 ```
-
-* Logo Design by [Ahmad Ali](http://www.ahmadali.me/)
